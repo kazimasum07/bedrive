@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:bedrive/drive/state/drive-state.dart';
 import 'package:provider/provider.dart';
 
-class AppBarContainer extends StatelessWidget with PreferredSizeWidget {
+class AppBarContainer extends StatelessWidget implements PreferredSizeWidget {
   @override
   final Size preferredSize = Size.fromHeight(kToolbarHeight);
 

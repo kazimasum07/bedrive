@@ -4,7 +4,6 @@ import 'package:bedrive/drive/screens/shareable-link/shareable-link-state.dart';
 import 'package:bedrive/drive/screens/shareable-link/shareable-link.dart';
 import 'package:bedrive/drive/state/file-entry/file-entry.dart';
 import 'package:bedrive/utils/text.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -93,18 +92,32 @@ class ExpirationFormField extends StatelessWidget {
 
   _formField(ShareableLink? link, BuildContext context) {
     final form = context.read<ShareableLinkState>().formPayload;
-    return DateTimePicker(
-        onSaved: (v) =>
-            context.read<ShareableLinkState>().formPayload['expiresAt'] = v,
-        type: DateTimePickerType.dateTime,
-        initialValue:
-            form['expiresAt'] != null ? form['expiresAt'].toString() : null,
+    var dateValue = showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
         firstDate: DateTime.now(),
         lastDate: DateTime.now().add(Duration(days: 300)),
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: trans('Link is valid until'),
-        ));
+    );
+    context.read<ShareableLinkState>().formPayload['expiresAt'] = dateValue;
+    return showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(Duration(days: 300)),
+    );
+
+      // DateTimePicker(
+      //   onSaved: (v) =>
+      //       context.read<ShareableLinkState>().formPayload['expiresAt'] = v,
+      //   type: DateTimePickerType.dateTime,
+      //   initialValue:
+      //       form['expiresAt'] != null ? form['expiresAt'].toString() : null,
+      //   firstDate: DateTime.now(),
+      //   lastDate: DateTime.now().add(Duration(days: 300)),
+      //   decoration: InputDecoration(
+      //     border: OutlineInputBorder(),
+      //     labelText: trans('Link is valid until'),
+      //   ));
   }
 }
 
